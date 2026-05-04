@@ -15,7 +15,6 @@ process revert_alignment_Picard {
 
     output:
         path("*.bam"), emit: read_group_bams
-        val(sample_id), emit: sample_id
 
     script:
     """
