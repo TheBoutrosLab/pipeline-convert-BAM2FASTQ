@@ -1,6 +1,6 @@
 {
     "f2": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.5,
@@ -12,22 +12,22 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
                 "min": 2,
                 "fraction": 1.0,
                 "max": 2
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 2,
-                "fraction": 1.0,
-                "max": 2
+                "min": 1,
+                "fraction": 0.5,
+                "max": 1
             },
             "memory": {
-                "min": "2 GB",
-                "fraction": 0.53,
+                "min": "1 GB",
+                "fraction": 0.45,
                 "max": "2 GB"
             },
             "retry_strategy": {
@@ -37,7 +37,7 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
                 "min": 2,
                 "fraction": 1.0,
@@ -55,14 +55,14 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
                 "min": 2,
                 "fraction": 1.0,
                 "max": 2
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
                 "min": 2,
                 "fraction": 1.0,
@@ -80,7 +80,7 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
                 "min": 2,
                 "fraction": 1.0,
@@ -100,7 +100,7 @@
         }
     },
     "f16": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
@@ -112,21 +112,21 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
                 "min": 14,
                 "fraction": 0.88,
                 "max": 14
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 4,
+                "min": 1,
                 "fraction": 0.25,
                 "max": 4
             },
             "memory": {
-                "min": "2 GB",
+                "min": "1 GB",
                 "fraction": 0.07,
                 "max": "2 GB"
             },
@@ -137,7 +137,7 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
                 "min": 12,
                 "fraction": 0.75,
@@ -155,14 +155,14 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
                 "min": 12,
                 "fraction": 0.75,
                 "max": 12
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
                 "min": 4,
                 "fraction": 0.25,
@@ -180,7 +180,7 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
                 "min": 4,
                 "fraction": 0.25,
@@ -200,7 +200,7 @@
         }
     },
     "f32": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.03,
@@ -212,21 +212,21 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
                 "min": 30,
                 "fraction": 0.94,
                 "max": 30
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 4,
+                "min": 1,
                 "fraction": 0.13,
                 "max": 4
             },
             "memory": {
-                "min": "2 GB",
+                "min": "1 GB",
                 "fraction": 0.03,
                 "max": "2 GB"
             },
@@ -237,7 +237,7 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
                 "min": 28,
                 "fraction": 0.88,
@@ -255,14 +255,14 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
                 "min": 28,
                 "fraction": 0.88,
                 "max": 28
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.25,
@@ -280,7 +280,7 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.25,
@@ -300,7 +300,7 @@
         }
     },
     "f72": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.01,
@@ -312,21 +312,21 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
                 "min": 70,
                 "fraction": 0.97,
                 "max": 70
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 4,
+                "min": 1,
                 "fraction": 0.06,
                 "max": 4
             },
             "memory": {
-                "min": "2 GB",
+                "min": "1 GB",
                 "fraction": 0.01,
                 "max": "2 GB"
             },
@@ -337,7 +337,7 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
                 "min": 64,
                 "fraction": 0.89,
@@ -355,14 +355,14 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
                 "min": 64,
                 "fraction": 0.89,
                 "max": 64
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.11,
@@ -380,7 +380,7 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.11,
@@ -400,7 +400,7 @@
         }
     },
     "m64": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.02,
@@ -412,21 +412,21 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
                 "min": 62,
                 "fraction": 0.97,
                 "max": 62
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 2,
+                "min": 1,
                 "fraction": 0.03,
                 "max": 2
             },
             "memory": {
-                "min": "256 GB",
+                "min": "64 GB",
                 "fraction": 0.26,
                 "max": "256 GB"
             },
@@ -437,7 +437,7 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
                 "min": 62,
                 "fraction": 0.97,
@@ -455,7 +455,7 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
                 "min": 62,
                 "fraction": 0.97,
@@ -473,7 +473,7 @@
                 }
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.13,
@@ -491,7 +491,7 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
                 "min": 8,
                 "fraction": 0.13,
@@ -511,7 +511,7 @@
         }
     },
     "default": {
-        "run_validate_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.01,
@@ -523,21 +523,21 @@
                 "max": "2 GB"
             }
         },
-        "convert_cram2bam_SAMtools": {
+        "convert_CRAM2BAM_SAMtools": {
             "cpus": {
-                "min": 70,
+                "min": 1,
                 "fraction": 0.97,
-                "max": 70
+                "max": 62
             }
         },
-        "get_bam_stats_SAMtools": {
+        "generate_statistics_SAMtools": {
             "cpus": {
-                "min": 4,
+                "min": 1,
                 "fraction": 0.06,
                 "max": 4
             },
             "memory": {
-                "min": "2 GB",
+                "min": "1 GB",
                 "fraction": 0.01,
                 "max": "2 GB"
             },
@@ -548,14 +548,14 @@
                 }
             }
         },
-        "filter_failed_reads_SAMtools": {
+        "filter_BAM_SAMtools": {
             "cpus": {
-                "min": 64,
+                "min": 2,
                 "fraction": 0.89,
                 "max": 64
             },
             "memory": {
-                "min": "120 GB",
+                "min": "3 GB",
                 "fraction": 0.88,
                 "max": "120 GB"
             },
@@ -566,23 +566,23 @@
                 }
             }
         },
-        "revert_alignment_Picard_Tools": {
+        "revert_alignment_Picard": {
             "cpus": {
-                "min": 64,
+                "min": 2,
                 "fraction": 0.89,
                 "max": 64
             }
         },
-        "collate_bam_SAMtools": {
+        "collate_BAM_SAMtools": {
             "cpus": {
-                "min": 8,
+                "min": 1,
                 "fraction": 0.11,
                 "max": 8
             },
             "memory": {
-                "min": "16 GB",
+                "min": "2 GB",
                 "fraction": 0.12,
-                "max": "16 GB"
+                "max": "32 GB"
             },
             "retry_strategy": {
                 "memory": {
@@ -591,14 +591,14 @@
                 }
             }
         },
-        "create_fastqs_SAMtools": {
+        "generate_FASTQ_SAMtools": {
             "cpus": {
-                "min": 8,
+                "min": 2,
                 "fraction": 0.11,
                 "max": 8
             },
             "memory": {
-                "min": "16 GB",
+                "min": "3 GB",
                 "fraction": 0.12,
                 "max": "16 GB"
             },
