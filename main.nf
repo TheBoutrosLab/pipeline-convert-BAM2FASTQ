@@ -1,0 +1,82 @@
+#!/usr/bin/env nextflow
+
+nextflow.enable.dsl=2
+
+// Include processes and workflows here
+include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
+
+include { generate_standard_filename } from './external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
+include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
+
+
+
+log.info """\
+=================================
+C O N V E R T - B A M 2 F A S T Q
+=================================
+Boutros Lab
+
+Current Configuration:
+
+    - pipeline:
+        name: ${workflow.manifest.name}
+        version: ${workflow.manifest.version}
+
+    - input:
+        sample: ${params.sample}
+
+    - output:
+        output: ${params.output_dir}
+        output_dir_base: ${params.output_dir_base}
+        log_output_dir: ${params.log_output_dir}
+
+    - options:
+      save_intermediate_files = ${params.save_intermediate_files}
+      filter_qc_failed_reads = ${params.filter_qc_failed_reads}
+      split_unmapped_reads_to_seperate_file = ${params.split_unmapped_reads_to_seperate_file}
+
+    Tools Used:
+        tool SAMtools: ${params.docker_image_samtools}
+        tool Picard: ${params.docker_image_picard}
+        tool PipeVal: ${params.docker_image_pipeval}
+
+    All parameters:
+        ${params}
+
+------------------------------------
+Starting workflow...
+------------------------------------
+        """
+        .stripIndent()
+
+workflow {
+    /**
+    *   Input channel processing
+    */
+    Channel.from(params.sample)
+        .map{ sample -> ['index': indexFile(sample.path)] + sample }
+        .set{ input_ch_sample_with_index }
+
+    input_ch_sample_with_index
+        .map{ sample -> [sample.path, sample.index] }
+        .flatten()
+        .set{ input_ch_validate }
+
+    base_meta = Channel.value([
+        'log_output_dir': params.log_output_dir,
+        'output_dir': params.output_dir_pipeline
+    ])
+
+    /**
+    *   Input validation
+    */
+    run_validate_PipeVal(
+        base_meta.combine(input_ch_validate)
+    )
+
+    run_validate_PipeVal.out.validation_result
+        .collectFile(
+            name: 'input_validation.txt',
+            storeDir: "${params.output_dir_pipeline}/validation"
+        )
+}
