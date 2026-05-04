@@ -1,0 +1,6 @@
+---
+patient_id: 'patient_id'
+input:
+  CRAM:
+    tumor:
+      - path: /path/to/input/cram
