@@ -6,6 +6,7 @@ nextflow.enable.dsl=2
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 include { remove_intermediate_files } from './external/pipeline-Nextflow-module/modules/common/intermediate_file_removal/main.nf'
+include { generate_checksum_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf'
 
 include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
 include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
@@ -184,5 +185,26 @@ workflow {
         base_meta,
         calculate_readcount_BAM.out.bam_read_count,
         fastq_read_count
+    )
+
+    /**
+    *   Generate checksums for FASTQ files
+    */
+    base_meta.map{ metadata ->
+        [
+            'output_dir': "${metadata.output_dir}/output",
+            'checksum_alg': params.checksum_alg,
+            'checksum_extra_args': params.checksum_extra_args,
+            'log_output_dir': metadata.log_output_dir
+        ]
+    }
+    .set{ checksum_meta }
+
+    generate_FASTQ_SAMtools.out.fastq
+        .flatMap{ fastq_out -> fastq_out[1] }
+        .set{ checksum_fastq }
+
+    generate_checksum_PipeVal(
+        checksum_meta.combine(checksum_fastq)
     )
 }
