@@ -160,4 +160,22 @@ workflow {
         base_meta,
         collate_BAM_SAMtools.out.bam
     )
+
+    /**
+    *   Generate read counts of FASTQ files
+    */
+    generate_FASTQ_SAMtools.out.fastq
+        .flatMap{ fastq_out -> fastq_out[1] }
+        .map{ fastq -> [file(it).name.toString().replace('.fastq.gz', ''), fastq] }
+        .set{ input_ch_count_reads_fastq }
+
+    count_reads_FASTQ(
+        base_meta,
+        input_ch_count_reads_fastq
+    )
+
+    count_reads_FASTQ.out.read_count
+        .toLong()
+        .sum()
+        .set{ fastq_read_count }
 }
