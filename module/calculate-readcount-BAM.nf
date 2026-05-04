@@ -1,5 +1,5 @@
 /**
-* Generate statistics from BAM
+* Calculate total read count from BAM flagstats
 */
 process calculate_readcount_BAM {
     container params.docker_image_samtools
