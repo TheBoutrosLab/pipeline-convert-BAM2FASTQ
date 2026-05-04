@@ -14,6 +14,7 @@ include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
 include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
 include { collate_BAM_SAMtools } from './module/collate-BAM-SAMtools.nf'
 include { generate_FASTQ_SAMtools } from './module/generate-FASTQ-SAMtools.nf'
+include { compare_readcounts } from './module/compare-readcounts.nf'
 
 log.info """\
 =================================
@@ -178,4 +179,10 @@ workflow {
         .toLong()
         .sum()
         .set{ fastq_read_count }
+
+    compare_readcounts(
+        base_meta,
+        calculate_readcount_BAM.out.bam_read_count,
+        fastq_read_count
+    )
 }
