@@ -13,10 +13,10 @@ process collate_BAM_SAMtools {
 
     input:
         val(META)
-        tuple val(sample_id), val(read_group), path(sample)
+        tuple val(read_group), path(sample)
 
     output:
-        tuple val(sample_id), val(read_group), env(LB), path("${read_group}-collated.bam"), emit: bam
+        tuple val(read_group), env(LB), path("${read_group}-collated.bam"), emit: bam
         path(sample), emit: bam_for_deletion
 
     script:
