@@ -5,12 +5,14 @@ nextflow.enable.dsl=2
 // Include processes and workflows here
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
+include { remove_intermediate_files } from './external/pipeline-Nextflow-module/modules/common/intermediate_file_removal/main.nf'
 
 include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
 include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
 include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
 include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
 include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
+include { collate_BAM_SAMtools } from './module/collate-BAM-SAMtools.nf'
 
 log.info """\
 =================================
@@ -133,5 +135,20 @@ workflow {
     revert_alignment_Picard(
         base_meta,
         input_ch_revert_alignment
+    )
+
+    revert_alignment_Picard.out.read_group_bams
+        .flatten()
+        .map{ rg_bam -> [params.sample.id, rg_bam.baseName, rg_bam] }
+        .set{ input_ch_collate_bam }
+
+    collate_BAM_SAMtools(
+        base_meta,
+        input_ch_collate_bam
+    )
+
+    remove_intermediate_files(
+        base_meta.combine(collate_BAM_SAMtools.out.bam_for_deletion),
+        "deletion_signal"
     )
 }
