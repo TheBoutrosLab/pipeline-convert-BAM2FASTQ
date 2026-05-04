@@ -1,0 +1,613 @@
+{
+    "f2": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.5,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.53,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.53,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.79,
+                "max": "3 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.79,
+                "max": "3 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 1.0,
+                "max": 2
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.79,
+                "max": "3 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    },
+    "f16": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.06,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.07,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 14,
+                "fraction": 0.88,
+                "max": 14
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.25,
+                "max": 4
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.07,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 12,
+                "fraction": 0.75,
+                "max": 12
+            },
+            "memory": {
+                "min": "4 GB",
+                "fraction": 0.13,
+                "max": "4 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 12,
+                "fraction": 0.75,
+                "max": 12
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.25,
+                "max": 4
+            },
+            "memory": {
+                "min": "8 GB",
+                "fraction": 0.26,
+                "max": "8 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.25,
+                "max": 4
+            },
+            "memory": {
+                "min": "8 GB",
+                "fraction": 0.26,
+                "max": "8 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    },
+    "f32": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.03,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.03,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 30,
+                "fraction": 0.94,
+                "max": 30
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.13,
+                "max": 4
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.03,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 28,
+                "fraction": 0.88,
+                "max": 28
+            },
+            "memory": {
+                "min": "58 GB",
+                "fraction": 0.95,
+                "max": "58 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 28,
+                "fraction": 0.88,
+                "max": 28
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.25,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.26,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.25,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.26,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    },
+    "f72": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.01,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 70,
+                "fraction": 0.97,
+                "max": 70
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.06,
+                "max": 4
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 64,
+                "fraction": 0.89,
+                "max": 64
+            },
+            "memory": {
+                "min": "120 GB",
+                "fraction": 0.88,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 64,
+                "fraction": 0.89,
+                "max": 64
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.11,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.12,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.11,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.12,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    },
+    "m64": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.02,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.00,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 62,
+                "fraction": 0.97,
+                "max": 62
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 2,
+                "fraction": 0.03,
+                "max": 2
+            },
+            "memory": {
+                "min": "256 GB",
+                "fraction": 0.26,
+                "max": "256 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 62,
+                "fraction": 0.97,
+                "max": 62
+            },
+            "memory": {
+                "min": "512 GB",
+                "fraction": 0.53,
+                "max": "512 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 62,
+                "fraction": 0.97,
+                "max": 62
+            },
+            "memory": {
+                "min": "512 GB",
+                "fraction": 0.53,
+                "max": "512 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.13,
+                "max": 8
+            },
+            "memory": {
+                "min": "125 GB",
+                "fraction": 0.13,
+                "max": "125 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.13,
+                "max": 8
+            },
+            "memory": {
+                "min": "125 GB",
+                "fraction": 0.13,
+                "max": "125 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    },
+    "default": {
+        "run_validate_PipeVal": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.01,
+                "max": 1
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            }
+        },
+        "convert_cram2bam_SAMtools": {
+            "cpus": {
+                "min": 70,
+                "fraction": 0.97,
+                "max": 70
+            }
+        },
+        "get_bam_stats_SAMtools": {
+            "cpus": {
+                "min": 4,
+                "fraction": 0.06,
+                "max": 4
+            },
+            "memory": {
+                "min": "2 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "filter_failed_reads_SAMtools": {
+            "cpus": {
+                "min": 64,
+                "fraction": 0.89,
+                "max": 64
+            },
+            "memory": {
+                "min": "120 GB",
+                "fraction": 0.88,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "revert_alignment_Picard_Tools": {
+            "cpus": {
+                "min": 64,
+                "fraction": 0.89,
+                "max": 64
+            }
+        },
+        "collate_bam_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.11,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.12,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "create_fastqs_SAMtools": {
+            "cpus": {
+                "min": 8,
+                "fraction": 0.11,
+                "max": 8
+            },
+            "memory": {
+                "min": "16 GB",
+                "fraction": 0.12,
+                "max": "16 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        }
+    }
+}
