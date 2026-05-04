@@ -37,7 +37,7 @@ process generate_FASTQ_SAMtools {
             -2 "${prefix}-R2.fastq.gz" \
             -s "${prefix}-singleton.fastq.gz" \
             -0 "${prefix}-other.fastq.gz" \
-            "${collated_bam}"
+            "${sample}"
     else
         samtools fastq \
             -t \
@@ -45,7 +45,7 @@ process generate_FASTQ_SAMtools {
             -c 1 \
             -1 "${prefix}-R1.fastq.gz" \
             -2 "${prefix}-R2.fastq.gz" \
-            "${collated_bam}"
+            "${sample}"
     fi
     """
 }
