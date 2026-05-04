@@ -13,6 +13,7 @@ include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
 include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
 include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
 include { collate_BAM_SAMtools } from './module/collate-BAM-SAMtools.nf'
+include { generate_FASTQ_SAMtools } from './module/generate-FASTQ-SAMtools.nf'
 
 log.info """\
 =================================
@@ -37,7 +38,7 @@ Current Configuration:
     - options:
       save_intermediate_files = ${params.save_intermediate_files}
       filter_qc_failed_reads = ${params.filter_qc_failed_reads}
-      split_unmapped_reads_to_seperate_file = ${params.split_unmapped_reads_to_seperate_file}
+      split_unmapped_reads_to_separate_file = ${params.split_unmapped_reads_to_separate_file}
 
     Tools Used:
         tool SAMtools: ${params.docker_image_samtools}
@@ -139,7 +140,7 @@ workflow {
 
     revert_alignment_Picard.out.read_group_bams
         .flatten()
-        .map{ rg_bam -> [params.sample.id, rg_bam.baseName, rg_bam] }
+        .map{ rg_bam -> [rg_bam.baseName, rg_bam] }
         .set{ input_ch_collate_bam }
 
     collate_BAM_SAMtools(
@@ -150,5 +151,13 @@ workflow {
     remove_intermediate_files(
         base_meta.combine(collate_BAM_SAMtools.out.bam_for_deletion),
         "deletion_signal"
+    )
+
+    /**
+    *   Convert BAM to FASTQ
+    */
+    generate_FASTQ_SAMtools(
+        base_meta,
+        collate_BAM_SAMtools.out.bam
     )
 }
