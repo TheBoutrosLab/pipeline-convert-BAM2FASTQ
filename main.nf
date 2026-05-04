@@ -7,6 +7,7 @@ include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modul
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 
 include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
+include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
 
 log.info """\
 =================================
@@ -87,5 +88,20 @@ workflow {
             input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
             params.reference_fasta
         )
+
+        convert_CRAM2BAM_SAMtools.out.bam.set{ input_ch_bam }
+    } else {
+        input_ch_sample_with_index.map{ input_sample ->
+            [input_sample.id, input_sample.path]
+        }
+        .set{ input_ch_bam }
     }
+
+    /**
+    *   Generate statistics for given BAM
+    */
+    generate_statistics_SAMtools(
+        base_meta,
+        input_ch_bam
+    )
 }
