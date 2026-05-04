@@ -9,6 +9,7 @@ include { indexFile } from './external/pipeline-Nextflow-module/modules/common/i
 include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
 include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
 include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
+include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
 
 log.info """\
 =================================
@@ -115,8 +116,13 @@ workflow {
     *   Filter QC failed reads
     */
     if (params.filter_qc_failed_reads) {
+        filter_BAM_SAMtools(
+            base_meta,
+            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+        )
 
+        filter_BAM_SAMtools.out.filtered.set{ input_ch_revert_alignment }
     } else {
-        input_ch_
+        input_ch_bam.set{ input_ch_revert_alignment }
     }
 }
