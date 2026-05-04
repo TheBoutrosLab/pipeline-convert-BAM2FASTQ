@@ -4,11 +4,9 @@ nextflow.enable.dsl=2
 
 // Include processes and workflows here
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
-
-include { generate_standard_filename } from './external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 
-
+include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
 
 log.info """\
 =================================
@@ -79,4 +77,15 @@ workflow {
             name: 'input_validation.txt',
             storeDir: "${params.output_dir_pipeline}/validation"
         )
+
+    /**
+    *   CRAM to BAM conversion
+    */
+    if (params.input_file_type == 'CRAM') {
+        convert_CRAM2BAM_SAMtools(
+            base_meta,
+            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+            params.reference_fasta
+        )
+    }
 }
