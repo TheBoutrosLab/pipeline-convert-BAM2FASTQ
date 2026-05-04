@@ -4,3 +4,4 @@ input:
   BAM:
     normal:
       - path: /path/to/input/bam
+        id: sample_id

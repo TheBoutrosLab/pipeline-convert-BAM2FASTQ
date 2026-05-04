@@ -4,3 +4,4 @@ input:
   CRAM:
     tumor:
       - path: /path/to/input/cram
+        id: sample_id

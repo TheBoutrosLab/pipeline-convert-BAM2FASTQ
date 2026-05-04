@@ -4,3 +4,4 @@ input:
   CRAM:
     normal:
       - path: /path/to/input/cram
+        id: sample_id
