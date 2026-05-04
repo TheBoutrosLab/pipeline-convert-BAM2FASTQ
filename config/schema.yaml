@@ -7,6 +7,11 @@ dataset_id:
   type: 'String'
   required: true
   help: 'Dataset identifier'
+portion_id:
+  type: 'String'
+  required: true
+  default: '0'
+  help: 'Portion ID to append to filename'
 reference_fasta:
   type: 'Path'
   mode: 'r'
@@ -19,9 +24,19 @@ output_dir:
   help: 'Absolute path to output directory'
 save_intermediate_files:
   type: 'Bool'
-  required: false
+  required: true
   default: false
   help: 'The option to save the intermediate files'
+filter_qc_failed_reads:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to filter out reads that failed QC'
+split_unmapped_reads_to_separate_file:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to separate out unmapped reads into separate file'
 apptainer_library:
   type: 'Path'
   mode: 'r'
@@ -32,6 +47,16 @@ apptainer_cache:
   mode: 'w'
   required: false
   help: 'Absolute path to Apptainer cache directory'
+checksum_alg:
+  type: 'String'
+  required: true
+  default: 'sha512'
+  help: 'Type of checksum to generate for output files'
+checksum_extra_args:
+  type: 'String'
+  required: true
+  allow_empty: true
+  help: 'Additional arguments to add to checksum generation function'
 base_resource_update:
   type: 'ResourceUpdateNamespace'
   required: false
