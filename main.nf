@@ -15,6 +15,7 @@ include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
 include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
 include { collate_BAM_SAMtools } from './module/collate-BAM-SAMtools.nf'
 include { generate_FASTQ_SAMtools } from './module/generate-FASTQ-SAMtools.nf'
+include { count_reads_FASTQ } from './module/count-reads-FASTQ.nf'
 include { compare_readcounts } from './module/compare-readcounts.nf'
 
 log.info """\
@@ -168,7 +169,7 @@ workflow {
     */
     generate_FASTQ_SAMtools.out.fastq
         .flatMap{ fastq_out -> fastq_out[1] }
-        .map{ fastq -> [file(it).name.toString().replace('.fastq.gz', ''), fastq] }
+        .map{ fastq -> [file(fastq).name.toString().replace('.fastq.gz', ''), fastq] }
         .set{ input_ch_count_reads_fastq }
 
     count_reads_FASTQ(
@@ -192,19 +193,32 @@ workflow {
     */
     base_meta.map{ metadata ->
         [
-            'output_dir': "${metadata.output_dir}/output",
+            'output_dir': metadata.output_dir,
             'checksum_alg': params.checksum_alg,
             'checksum_extra_args': params.checksum_extra_args,
             'log_output_dir': metadata.log_output_dir
         ]
     }
-    .set{ checksum_meta }
+    .set{ checksum_base_meta }
 
     generate_FASTQ_SAMtools.out.fastq
-        .flatMap{ fastq_out -> fastq_out[1] }
-        .set{ checksum_fastq }
+        .map{ fastq_out -> ['lb_id': fastq_out[0], 'lb_fastqs': (fastq_out instanceof List) ? fastq_out : [fastq_out]] }
+        .combine(checksum_base_meta)
+        .map{ collected_fastq ->
+            List to_sum = [];
+            collected_fastq[0].each{ k, v ->
+                v.each { fastq ->
+                    to_sum << ['meta': collected_fastq[1].plus(['output_dir': "${collected_fastq[1].output_dir}/output/${k}"]), 'fastq': fastq]
+                }
+            }
+
+            return to_sum
+        }
+        .flatten()
+        .map{ fastq_map -> [fastq_map.meta, fastq_map.fastq] }
+        .set{ input_ch_generate_checksum }
 
     generate_checksum_PipeVal(
-        checksum_meta.combine(checksum_fastq)
+        input_ch_generate_checksum
     )
 }
