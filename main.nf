@@ -10,6 +10,7 @@ include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.n
 include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
 include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
 include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
+include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
 
 log.info """\
 =================================
@@ -125,4 +126,12 @@ workflow {
     } else {
         input_ch_bam.set{ input_ch_revert_alignment }
     }
+
+    /**
+    *   Revert alignment into separate read groups
+    */
+    revert_alignment_Picard(
+        base_meta,
+        input_ch_revert_alignment
+    )
 }
