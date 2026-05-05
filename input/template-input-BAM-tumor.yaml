@@ -1,0 +1,7 @@
+---
+patient_id: 'patient_id'
+input:
+  BAM:
+    tumor:
+      - path: /path/to/input/bam
+        id: sample_id

@@ -1,0 +1,143 @@
+---
+patient_id:
+  type: 'String'
+  required: true
+  help: 'Patient identifier'
+dataset_id:
+  type: 'String'
+  required: true
+  help: 'Dataset identifier'
+portion_id:
+  type: 'String'
+  required: true
+  default: '0'
+  help: 'Portion ID to append to filename'
+reference_fasta:
+  type: 'Path'
+  mode: 'r'
+  required: false
+  help: 'Absolute path to reference fasta'
+output_dir:
+  type: 'Path'
+  mode: 'w'
+  required: true
+  help: 'Absolute path to output directory'
+save_intermediate_files:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'The option to save the intermediate files'
+filter_qc_failed_reads:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to filter out reads that failed QC'
+split_unmapped_reads_to_separate_file:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to separate out unmapped reads into separate file'
+apptainer_library:
+  type: 'Path'
+  mode: 'r'
+  required: false
+  help: 'Absolute path to Apptainer library directory'
+apptainer_cache:
+  type: 'Path'
+  mode: 'w'
+  required: false
+  help: 'Absolute path to Apptainer cache directory'
+checksum_alg:
+  type: 'String'
+  required: true
+  default: 'sha512'
+  help: 'Type of checksum to generate for output files'
+checksum_extra_args:
+  type: 'String'
+  required: true
+  allow_empty: true
+  help: 'Additional arguments to add to checksum generation function'
+base_resource_update:
+  type: 'ResourceUpdateNamespace'
+  required: false
+  help: 'User-defined modifications for adjusting base resource allocations for processes'
+  elements:
+    memory:
+      type: 'ResourceUpdateList'
+      required: false
+      help: 'List of memory updates'
+    cpus:
+      type: 'ResourceUpdateList'
+      required: false
+      help: 'List of CPU updates'
+input:
+  type: 'InputNamespace'
+  required: true
+  help: 'Input to process'
+  elements:
+    CRAM:
+      type: 'InputAlignedNamespace'
+      required: false
+      help: 'CRAM input specifications'
+      elements:
+        normal:
+          type: 'MapList'
+          required: false
+          help: 'Normal sample input specifications'
+          elements:
+            path:
+              type: 'Path'
+              mode: 'r'
+              required: true
+              help: 'Absolute path to normal sample CRAM'
+            id:
+              type: 'String'
+              required: true
+              help: 'Sample ID'
+        tumor:
+          type: 'MapList'
+          required: false
+          help: 'Tumor sample input specifications'
+          elements:
+            path:
+              type: 'Path'
+              mode: 'r'
+              required: true
+              help: 'Absolute path to normal sample CRAM'
+            id:
+              type: 'String'
+              required: true
+              help: 'Sample ID'
+    BAM:
+      type: 'InputAlignedNamespace'
+      required: false
+      help: 'BAM input specifications'
+      elements:
+        normal:
+          type: 'MapList'
+          required: false
+          help: 'Normal sample input specifications'
+          elements:
+            path:
+              type: 'Path'
+              mode: 'r'
+              required: true
+              help: 'Absolute path to normal sample BAM'
+            id:
+              type: 'String'
+              required: true
+              help: 'Sample ID'
+        tumor:
+          type: 'MapList'
+          required: false
+          help: 'Tumor sample input specifications'
+          elements:
+            path:
+              type: 'Path'
+              mode: 'r'
+              required: true
+              help: 'Absolute path to normal sample BAM'
+            id:
+              type: 'String'
+              required: true
+              help: 'Sample ID'

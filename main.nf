@@ -1,0 +1,222 @@
+#!/usr/bin/env nextflow
+
+nextflow.enable.dsl=2
+
+// Include processes and workflows here
+include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
+include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
+include { remove_intermediate_files } from './external/pipeline-Nextflow-module/modules/common/intermediate_file_removal/main.nf'
+include { generate_checksum_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf'
+
+include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
+include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
+include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
+include { filter_BAM_SAMtools } from './module/filter-BAM-SAMtools.nf'
+include { revert_alignment_Picard } from './module/revert-alignment-Picard.nf'
+include { collate_BAM_SAMtools } from './module/collate-BAM-SAMtools.nf'
+include { generate_FASTQ_SAMtools } from './module/generate-FASTQ-SAMtools.nf'
+include { count_reads_FASTQ } from './module/count-reads-FASTQ.nf'
+include { compare_readcounts } from './module/compare-readcounts.nf'
+
+log.info """\
+=================================
+C O N V E R T - B A M 2 F A S T Q
+=================================
+Boutros Lab
+
+Current Configuration:
+
+    - pipeline:
+        name: ${workflow.manifest.name}
+        version: ${workflow.manifest.version}
+
+    - input:
+        sample: ${params.sample}
+
+    - output:
+        output: ${params.output_dir}
+        output_dir_base: ${params.output_dir_base}
+        log_output_dir: ${params.log_output_dir}
+
+    - options:
+      save_intermediate_files = ${params.save_intermediate_files}
+      filter_qc_failed_reads = ${params.filter_qc_failed_reads}
+      split_unmapped_reads_to_separate_file = ${params.split_unmapped_reads_to_separate_file}
+
+    Tools Used:
+        tool SAMtools: ${params.docker_image_samtools}
+        tool Picard: ${params.docker_image_picard}
+        tool PipeVal: ${params.docker_image_pipeval}
+
+    All parameters:
+        ${params}
+
+------------------------------------
+Starting workflow...
+------------------------------------
+        """
+        .stripIndent()
+
+workflow {
+    /**
+    *   Input channel processing
+    */
+    Channel.from(params.sample)
+        .map{ sample -> ['index': indexFile(sample.path)] + sample }
+        .set{ input_ch_sample_with_index }
+
+    input_ch_sample_with_index
+        .map{ sample -> [sample.path, sample.index] }
+        .flatten()
+        .set{ input_ch_validate }
+
+    base_meta = Channel.value([
+        'log_output_dir': params.log_output_dir,
+        'output_dir': params.output_dir_pipeline
+    ])
+
+    /**
+    *   Input validation
+    */
+    run_validate_PipeVal(
+        base_meta.combine(input_ch_validate)
+    )
+
+    run_validate_PipeVal.out.validation_result
+        .collectFile(
+            name: 'input_validation.txt',
+            storeDir: "${params.output_dir_pipeline}/validation"
+        )
+
+    /**
+    *   CRAM to BAM conversion
+    */
+    if (params.input_file_type == 'CRAM') {
+        convert_CRAM2BAM_SAMtools(
+            base_meta,
+            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+            params.reference_fasta
+        )
+
+        convert_CRAM2BAM_SAMtools.out.bam.set{ input_ch_bam }
+    } else {
+        input_ch_sample_with_index.map{ input_sample ->
+            [input_sample.id, input_sample.path]
+        }
+        .set{ input_ch_bam }
+    }
+
+    /**
+    *   Generate statistics for given BAM
+    */
+    generate_statistics_SAMtools(
+        base_meta,
+        input_ch_bam
+    )
+
+    calculate_readcount_BAM(
+        base_meta,
+        generate_statistics_SAMtools.out.flagstats
+    )
+
+    /**
+    *   Filter QC failed reads
+    */
+    if (params.filter_qc_failed_reads) {
+        filter_BAM_SAMtools(
+            base_meta,
+            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+        )
+
+        filter_BAM_SAMtools.out.filtered.set{ input_ch_revert_alignment }
+    } else {
+        input_ch_bam.set{ input_ch_revert_alignment }
+    }
+
+    /**
+    *   Revert alignment into separate read groups
+    */
+    revert_alignment_Picard(
+        base_meta,
+        input_ch_revert_alignment
+    )
+
+    revert_alignment_Picard.out.read_group_bams
+        .flatten()
+        .map{ rg_bam -> [rg_bam.baseName, rg_bam] }
+        .set{ input_ch_collate_bam }
+
+    collate_BAM_SAMtools(
+        base_meta,
+        input_ch_collate_bam
+    )
+
+    remove_intermediate_files(
+        base_meta.combine(collate_BAM_SAMtools.out.bam_for_deletion),
+        "deletion_signal"
+    )
+
+    /**
+    *   Convert BAM to FASTQ
+    */
+    generate_FASTQ_SAMtools(
+        base_meta,
+        collate_BAM_SAMtools.out.bam
+    )
+
+    /**
+    *   Generate read counts of FASTQ files
+    */
+    generate_FASTQ_SAMtools.out.fastq
+        .flatMap{ fastq_out -> fastq_out[1] }
+        .map{ fastq -> [file(fastq).name.toString().replace('.fastq.gz', ''), fastq] }
+        .set{ input_ch_count_reads_fastq }
+
+    count_reads_FASTQ(
+        base_meta,
+        input_ch_count_reads_fastq
+    )
+
+    count_reads_FASTQ.out.read_count
+        .toLong()
+        .sum()
+        .set{ fastq_read_count }
+
+    compare_readcounts(
+        base_meta,
+        calculate_readcount_BAM.out.bam_read_count,
+        fastq_read_count
+    )
+
+    /**
+    *   Generate checksums for FASTQ files
+    */
+    base_meta.map{ metadata ->
+        [
+            'output_dir': metadata.output_dir,
+            'checksum_alg': params.checksum_alg,
+            'checksum_extra_args': params.checksum_extra_args,
+            'log_output_dir': metadata.log_output_dir
+        ]
+    }
+    .set{ checksum_base_meta }
+
+    generate_FASTQ_SAMtools.out.fastq
+        .map{ fastq_out -> ['lb_id': fastq_out[0], 'lb_fastqs': (fastq_out[1] instanceof List) ? fastq_out[1] : [fastq_out[1]]] }
+        .combine(checksum_base_meta)
+        .map{ collected_fastq ->
+            List to_sum = [];
+            collected_fastq[0].lb_fastqs.each{ fastq ->
+                to_sum << ['meta': collected_fastq[1].plus(['output_dir': "${collected_fastq[1].output_dir}/output/${collected_fastq[0].lb_id}"]), 'fastq': fastq]
+            }
+
+            return to_sum
+        }
+        .flatten()
+        .map{ fastq_map -> [fastq_map.meta, fastq_map.fastq] }
+        .set{ input_ch_generate_checksum }
+
+    generate_checksum_PipeVal(
+        input_ch_generate_checksum
+    )
+}

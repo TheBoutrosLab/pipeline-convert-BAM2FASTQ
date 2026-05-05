@@ -1,61 +1,47 @@
 # Description
-<!--- Briefly describe the changes included in this pull request  --->
+<!-- Briefly describe the changes included in this pull request, starting with 'Closes #... if appropriate.  -->
 
-### Closes #...  <!-- edit if this PR closes an Issue -->
+### Closes #...
 
-<!-- 
-Admin/maintainer: please edit the 'Pipeline Run Results' or 'Analysis Results' sections as needed for your project repo.  
-Then commit/push the changes so everyone uses this template for future PRs.
+## Testing Results
 
-For example, if your project is a `pipeline`, then create a 'Pipeline Run Results' section.
+<!-- If you did not run NFTest, please justify _why_ you feel your changes
+     don't need to be tested. -->
 
-If your project is a general data analysis project, then you may want to require an 'Analysis Results' section in order to test
-code from each PR to help prevent creating new bugs.
--->
+- NFTest
+  - cases:    default set <!-- update this if you made any changes to nftest.yml or ran default disabled test cases explicitly -->
 
-## Pipeline Run Results
+<!--
+    Include any non-NFTest test details here, using the "Additional Case"
+    template below as appropriate. Please make sure that a reviewer can
+    understand:
+    * How you tested the pipeline
+    * How others can test it (including paths to config and YAML files)
+    * How the results demonstrate the changes in this PR. Examples of this
+      might include:
+        * The run completed successfully, so nothing was broken
+        * An output file changed (this might require two pipeline runs, before
+          and after your changes, to demonstrate the difference)
+    -->
+- Additional Case 1
 
-- Case 1
-    - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-    - test:      <!-- Specific pipeline test case -->
-- Case 2
-    - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-    - test:      <!-- Specific pipeline test case -->
-
-## Analysis Results
-
-- Case 1
-    - script:    <!-- path/to/script.R -->
-    - command:   <!-- path/to/launch.sh -->
-    - output:    <!-- path/to/output -->
-- Case 2
-    - script:    <!-- path/to/script.R -->
-    - command:   <!-- path/to/launch.sh -->
-    - output:    <!-- path/to/output -->
 
 # Checklist
-<!--- Please read each of the following items and confirm by replacing the [ ] with a [X] --->
+<!-- Please read each of the following items and confirm by replacing the [ ] with a [X] -->
 
-- [ ] This PR **does *NOT* contain** Protected Health Information [(PHI)](https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html). A repo may ***need to be deleted*** if such data is uploaded. <br> Disclosing PHI is a ***major problem***[^1] - Even ***a small leak can be costly***[^2].
-  
-- [ ] This PR **does *NOT* contain** germline genetic data[^3], RNA-Seq, DNA methylation, microbiome or other molecular data[^4].
+- [ ] I have read the [code review guidelines](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3187646/Code+Review+Guidelines) and the [code review best practice on GitHub check-list](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189956/Code+Review+Best+Practice+on+GitHub+-+Check+List).
 
-[^1]: [UCLA Health reaches $7.5m settlement over 2015 breach of 4.5m patient records](https://healthitsecurity.com/news/ucla-health-reaches-7.5m-settlement-over-2015-breach-of-4.5m)
-[^2]: [The average healthcare data breach costs $2.2 million, despite the majority of breaches releasing fewer than 500 records.](https://www.ponemon.org/local/upload/file/Sixth%20Annual%20Patient%20Privacy%20%26%20Data%20Security%20Report%20FINAL%206.pdf)
-[^3]: [Genetic information is considered PHI.](https://www.genome.gov/about-genomics/policy-issues/Privacy#:~:text=In%202013%2C%20as%20required%20by,genetic%20information%20for%20underwriting%20purposes.)
-  [Forensic assays can identify patients with as few as 21 SNPs](https://www.sciencedirect.com/science/article/pii/S1525157817305962)
-[^4]: [RNA-Seq](https://www.nature.com/articles/ng.2248), [DNA methylation](https://ieeexplore.ieee.org/document/7958619), [microbiome](https://www.pnas.org/doi/pdf/10.1073/pnas.1423854112), or other molecular data can be used to predict genotypes (PHI) and reveal a patient's identity.
+- [ ] I have reviewed the [Nextflow pipeline standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3193890/Nextflow+pipeline+standardization).
 
+- [ ] The name of the branch is meaningful and well formatted following the [standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189956/Code+Review+Best+Practice+on+GitHub+-+Check+List), using \[AD\_username (or 5 letters of AD if AD is too long)]-\[brief\_description\_of\_branch\].
 
-- [ ] This PR **does *NOT* contain** other non-plain text files, such as: compressed files, images (*e.g.* `.png`, .`jpeg`), `.pdf`, `.RData`, `.xlsx`, `.doc`, `.ppt`, or other output files.
+- [ ] I have set up or verified the branch protection rule following the [github standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190380/GitHub+Standards#GitHubStandards-Branchprotectionrule) before opening this pull request.
 
-_&emsp; To automatically exclude such files using a [.gitignore](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files) file, see [here](https://github.com/TheBoutrosLab/template-base/blob/main/.gitignore) for example._
+- [ ] I have added my name to the contributors listings in the ``manifest`` block in the `nextflow.config` as part of this pull request, am listed
+already, or do not wish to be listed. (*This acknowledgement is optional.*)
 
-- [ ] I have read the [code review guidelines] and the [code review best practice on GitHub check-list].
+- [ ] I have added the changes included in this pull request to the `CHANGELOG.md` under the next release version or unreleased, and updated the date.
 
-- [ ] I have set up or verified the `main` branch protection rule following the [github standards] before opening this pull request.
+- [ ] I have updated the version number in the `metadata.yaml` and `manifest` block of the `nextflow.config` file following [semver](https://semver.org/), or the version number has already been updated. (*Leave it unchecked if you are unsure about new version number and discuss it with the infrastructure team in this PR.*)
 
-- [ ] The name of the branch is meaningful and well formatted following the [standards], using [AD_username (or 5 letters of AD if AD is too long)]-[brief_description_of_branch].
-  
-- [ ] I have added the major changes included in this pull request to the `CHANGELOG.md` under the next release version or unreleased, and updated the date.
-
+- [ ] I have tested the pipeline using NFTest, _or_ I have justified why I did not need to run NFTest above.
