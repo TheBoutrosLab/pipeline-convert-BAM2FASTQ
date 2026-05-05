@@ -202,14 +202,12 @@ workflow {
     .set{ checksum_base_meta }
 
     generate_FASTQ_SAMtools.out.fastq
-        .map{ fastq_out -> ['lb_id': fastq_out[0], 'lb_fastqs': (fastq_out instanceof List) ? fastq_out : [fastq_out]] }
+        .map{ fastq_out -> ['lb_id': fastq_out[0], 'lb_fastqs': (fastq_out[1] instanceof List) ? fastq_out[1] : [fastq_out[1]]] }
         .combine(checksum_base_meta)
         .map{ collected_fastq ->
             List to_sum = [];
-            collected_fastq[0].each{ k, v ->
-                v.each { fastq ->
-                    to_sum << ['meta': collected_fastq[1].plus(['output_dir': "${collected_fastq[1].output_dir}/output/${k}"]), 'fastq': fastq]
-                }
+            collected_fastq[0].lb_fastqs.each{ fastq ->
+                to_sum << ['meta': collected_fastq[1].plus(['output_dir': "${collected_fastq[1].output_dir}/output/${collected_fastq[0].lb_id}"]), 'fastq': fastq]
             }
 
             return to_sum
