@@ -197,7 +197,7 @@ workflow {
     /**
     *   Generate checksums for FASTQ files
     */
-    base_meta.map{ metadata ->
+    module_meta.map{ metadata ->
         [
             'output_dir': metadata.output_dir,
             'checksum_alg': params.checksum_alg,
@@ -213,7 +213,7 @@ workflow {
         .map{ collected_fastq ->
             List to_sum = [];
             collected_fastq[0].lb_fastqs.each{ fastq ->
-                to_sum << ['meta': collected_fastq[1].plus(['log_output_dir': "${collected_fastq[1].log_output_dir}/process-log", 'output_dir': "${collected_fastq[1].output_dir}/output/${collected_fastq[0].lb_id}"]), 'fastq': fastq]
+                to_sum << ['meta': collected_fastq[1].plus(['output_dir': "${collected_fastq[1].output_dir}/output/${collected_fastq[0].lb_id}"]), 'fastq': fastq]
             }
 
             return to_sum
