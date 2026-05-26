@@ -75,11 +75,17 @@ workflow {
         'output_dir': params.output_dir_pipeline
     ])
 
+    module_meta = base_meta.map{ base_m ->
+        base_m + [
+            'log_output_dir': "${base_m.log_output_dir}/process-log"
+        ]
+    }
+
     /**
     *   Input validation
     */
     run_validate_PipeVal(
-        base_meta.combine(input_ch_validate)
+        module_meta.combine(input_ch_validate)
     )
 
     run_validate_PipeVal.out.validation_result
@@ -152,7 +158,7 @@ workflow {
     )
 
     remove_intermediate_files(
-        base_meta.combine(collate_BAM_SAMtools.out.bam_for_deletion),
+        module_meta.combine(collate_BAM_SAMtools.out.bam_for_deletion),
         "deletion_signal"
     )
 
@@ -191,7 +197,7 @@ workflow {
     /**
     *   Generate checksums for FASTQ files
     */
-    base_meta.map{ metadata ->
+    module_meta.map{ metadata ->
         [
             'output_dir': metadata.output_dir,
             'checksum_alg': params.checksum_alg,
