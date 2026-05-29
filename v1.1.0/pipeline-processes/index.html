@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Pipeline Processes - pipeline-convert-BAM2FASTQ</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Pipeline Processes";
+        var mkdocs_page_input_path = "pipeline-processes.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pipeline-convert-BAM2FASTQ
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../how-to-run/">How to Run</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flow-diagram/">Flow Diagram</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Pipeline Processes</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-input-validation">1. Input Validation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-uncram-input-file-with-cram-extension">2. Uncram Input file with .cram extension</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-get-summary-statistics">3. Get Summary Statistics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-filter-failed-reads">4. Filter Failed Reads</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-eliminate-mapping-information-and-output-by-readgroup">5. Eliminate Mapping Information and Output by ReadGroup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-sort-intermediate-file">6. Sort intermediate file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-create-fastqs">7. Create FASTQs</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../inputs/">Inputs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../discussions/">Discussions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributors/">Contributors</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../references/">References</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pipeline-convert-BAM2FASTQ</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Pipeline Processes</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/blob/v1.1.0/README.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="pipeline-processes">Pipeline Processes</h2>
+<h3 id="1-input-validation">1. Input Validation</h3>
+<p>Checks if input files are valid.</p>
+<h3 id="2-uncram-input-file-with-cram-extension">2. Uncram Input file with <code>.cram</code> extension</h3>
+<p>Uses specified reference genome to decompress CRAM files and restore it to a BAM file.</p>
+<h3 id="3-get-summary-statistics">3. Get Summary Statistics</h3>
+<p>Uses SAMtools <code>flagstat</code> and <code>stats</code> command to generate a summary with basic information on reads</p>
+<h3 id="4-filter-failed-reads">4. Filter Failed Reads</h3>
+<p>Removes reads that have failed basic QC per the vendor specification</p>
+<h3 id="5-eliminate-mapping-information-and-output-by-readgroup">5. Eliminate Mapping Information and Output by ReadGroup</h3>
+<p>Uses PicardTools <code>RevertSam</code> command to eliminate genomic coordinates leaving only read and quality scores. This process also outputs intermediate files separated by read group.</p>
+<h3 id="6-sort-intermediate-file">6. Sort intermediate file</h3>
+<p>Uses SAMtools <code>collate</code> command to sort the intermediate files. This is needed for the FASTQ creation stage.</p>
+<h3 id="7-create-fastqs">7. Create FASTQs</h3>
+<p>Uses SAMtools <code>fastq</code> to output paired FASTQs and supplementary reads.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../flow-diagram/" class="btn btn-neutral float-left" title="Flow Diagram"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../inputs/" class="btn btn-neutral float-right" title="Inputs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/tree/v1.1.0" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../flow-diagram/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../inputs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
