@@ -7,6 +7,7 @@
 - [Flow Diagram](#flow-diagram)
 - [Pipeline Steps](#pipeline-processes)
 - [Inputs](#inputs)
+- [Profiles](#profiles)
 - [Outputs](#outputs)
 - [Discussions](#discussions)
 - [Contributors](#contributors)
@@ -103,6 +104,10 @@ input:
 | `save_intermediate_files` | Yes | boolean | Set to false to disable publishing of intermediate files; true otherwise; disabling option will delete intermediate files to allow for processing of large BAMs |
 | `reference_fasta` | Yes | path | Absolute path to reference genome fasta file |
 | `work_dir` | optional | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. Setting this directory to `/hot` or `/tmp` or directories not optimized for scratch I/O can lead to high server latency and potential disk space limitations, respectively. |
+| `apptainer_library` | optional | path | Path to readable Apptainer library directory containing any existing Apptainer images. |
+| `apptainer_cache` | optional | path | Path to writable Apptainer cache directory where images will be cached. |
+| `singularity_library` | optional | path | Path to readable Singularity library directory containing any existing Singularity images. |
+| `singularity_cache` | optional | path | Path to writable Singularity cache directory where images will be cached. |
 | `base_resource_update` | optional | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
 
 
@@ -155,6 +160,14 @@ base_resource_update {
     ]
 }
 ```
+
+## Profiles
+
+Profiles can be selected to control which containerization system will be used. Profile selection can be passed to the Nextflow run command using `-profile`. Available profiles:
+
+- `docker` - Use Docker as the containerization system
+- `apptainer` - Use Apptainer as the containerization system
+- `singularity` - Use Singularity as the containerization system
 
 ## Outputs
 
