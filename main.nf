@@ -225,4 +225,8 @@ workflow {
     generate_checksum_PipeVal(
         input_ch_generate_checksum
     )
+
+    workflow.onComplete = {
+        WorkflowFinalizer.completeWorkflow(workflow, params);
+    }
 }
