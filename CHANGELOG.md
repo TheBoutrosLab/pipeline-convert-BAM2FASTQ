@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixed
 
 - Fix passing of reference FASTA to allow validation of CRAM input
+- Allocate resources to processes to allow for parallelization where possible
 
 ## [1.3.0] - 2026-08-28
 
