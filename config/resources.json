@@ -17,6 +17,17 @@
                 "min": 2,
                 "fraction": 1.0,
                 "max": 2
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.79,
+                "max": "3 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
@@ -128,6 +139,17 @@
                 "min": 14,
                 "fraction": 0.88,
                 "max": 14
+            },
+            "memory": {
+                "min": "24 GB",
+                "fraction": 0.75,
+                "max": "24 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
@@ -239,6 +261,17 @@
                 "min": 30,
                 "fraction": 0.94,
                 "max": 30
+            },
+            "memory": {
+                "min": "60 GB",
+                "fraction": 0.95,
+                "max": "60 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
@@ -350,6 +383,17 @@
                 "min": 70,
                 "fraction": 0.97,
                 "max": 70
+            },
+            "memory": {
+                "min": "120 GB",
+                "fraction": 0.88,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
@@ -461,6 +505,17 @@
                 "min": 62,
                 "fraction": 0.97,
                 "max": 62
+            },
+            "memory": {
+                "min": "512 GB",
+                "fraction": 0.53,
+                "max": "512 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
@@ -572,6 +627,17 @@
                 "min": 1,
                 "fraction": 0.97,
                 "max": 62
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.85,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "generate_statistics_SAMtools": {
