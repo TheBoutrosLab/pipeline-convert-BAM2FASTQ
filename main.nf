@@ -46,7 +46,7 @@ Current Configuration:
     Tools Used:
         tool SAMtools: ${params.docker_image_samtools}
         tool Picard: ${params.docker_image_picard}
-        tool PipeVal: ${params.docker_image_pipeval}
+        tool PipeVal: ${params.docker_image_validate}
 
     All parameters:
         ${params}
@@ -84,8 +84,15 @@ workflow {
     /**
     *   Input validation
     */
+    validate_meta = module_meta.map{ module_m ->
+        module_m + [
+            'reference_fasta': params.reference_fasta,
+            'validate_extra_args': "-r ${params.reference_fasta}" as String
+        ]
+    }
+
     run_validate_PipeVal(
-        module_meta.combine(input_ch_validate)
+        validate_meta.combine(input_ch_validate)
     )
 
     run_validate_PipeVal.out.validation_result
