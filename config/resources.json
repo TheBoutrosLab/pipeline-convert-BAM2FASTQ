@@ -1,6 +1,6 @@
 {
     "f2": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.5,
@@ -60,6 +60,17 @@
                 "min": 2,
                 "fraction": 1.0,
                 "max": 2
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.79,
+                "max": "3 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "collate_BAM_SAMtools": {
@@ -100,7 +111,7 @@
         }
     },
     "f16": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
@@ -160,6 +171,17 @@
                 "min": 12,
                 "fraction": 0.75,
                 "max": 12
+            },
+            "memory": {
+                "min": "24 GB",
+                "fraction": 0.75,
+                "max": "24 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "collate_BAM_SAMtools": {
@@ -200,7 +222,7 @@
         }
     },
     "f32": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.03,
@@ -260,6 +282,17 @@
                 "min": 28,
                 "fraction": 0.88,
                 "max": 28
+            },
+            "memory": {
+                "min": "60 GB",
+                "fraction": 0.95,
+                "max": "60 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "collate_BAM_SAMtools": {
@@ -300,7 +333,7 @@
         }
     },
     "f72": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.01,
@@ -360,6 +393,17 @@
                 "min": 64,
                 "fraction": 0.89,
                 "max": 64
+            },
+            "memory": {
+                "min": "120 GB",
+                "fraction": 0.88,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "collate_BAM_SAMtools": {
@@ -400,7 +444,7 @@
         }
     },
     "m64": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.02,
@@ -511,7 +555,7 @@
         }
     },
     "default": {
-        "run_validate_Pipeval|generate_checksum_PipeVal": {
+        "run_validate_Pipeval|generate_checksum_PipeVal|count_reads_FASTQ": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.01,
@@ -571,6 +615,17 @@
                 "min": 2,
                 "fraction": 0.89,
                 "max": 64
+            },
+            "memory": {
+                "min": "3 GB",
+                "fraction": 0.85,
+                "max": "120 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
             }
         },
         "collate_BAM_SAMtools": {
