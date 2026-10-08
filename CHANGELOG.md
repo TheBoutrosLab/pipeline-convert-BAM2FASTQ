@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-08
+
 ### Changed
 
 - Parameterize compression level of output FASTQ files with default setting of `9`
@@ -44,4 +46,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 [1.2.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.1.0...v1.2.0
 [1.3.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.2.0...v1.3.0
 [1.3.1]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.0...v1.3.1
-[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.1...HEAD
+[1.4.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.1...v1.4.0
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.0...HEAD
