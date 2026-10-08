@@ -122,6 +122,7 @@ The below parameters have default values defined in [`default.config`](./config/
 | `docker_image_samtools`, `samtools_version` | string | Docker image name and version for SAMtools. |
 | `checksum_alg` | string | Type of checksum to compute for output files. |
 | `checksum_extra_args` | string | Additional arguments to pass to the checksum process. |
+| `compression_level` | integer | Compression level for FASTQ files, from 0 to 9. |
 
 #### Base resource allocation updaters
 To update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts. The default allocations can be found in the [resources JSON](./config/resources.json)

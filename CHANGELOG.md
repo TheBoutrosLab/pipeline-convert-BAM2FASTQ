@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+
+- Parameterize compression level of output FASTQ files with default setting of `9`
+
 ## [1.3.1] - 2026-10-01
 
 ### Fixed
