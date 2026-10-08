@@ -32,7 +32,7 @@ process generate_FASTQ_SAMtools {
         samtools fastq \
             -t \
             --threads ${task.cpus} \
-            -c 1 \
+            -c ${params.compression_level} \
             -1 "${prefix}-R1.fastq.gz" \
             -2 "${prefix}-R2.fastq.gz" \
             -s "${prefix}-singleton.fastq.gz" \
@@ -42,7 +42,7 @@ process generate_FASTQ_SAMtools {
         samtools fastq \
             -t \
             --threads ${task.cpus} \
-            -c 1 \
+            -c ${params.compression_level} \
             -1 "${prefix}-R1.fastq.gz" \
             -2 "${prefix}-R2.fastq.gz" \
             "${sample}"

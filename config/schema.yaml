@@ -37,6 +37,12 @@ split_unmapped_reads_to_separate_file:
   required: true
   default: false
   help: 'Whether to separate out unmapped reads into separate file'
+compression_level:
+  type: 'Integer'
+  choices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  required: false
+  default: 9
+  help: 'Compression level for FASTQ files'
 apptainer_library:
   type: 'Path'
   mode: 'r'
