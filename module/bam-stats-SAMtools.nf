@@ -6,7 +6,8 @@ process generate_statistics_SAMtools {
 
     publishDir path: "${META.output_dir}/QC/${task.process.split(':')[-1].replace('_', '-')}",
         pattern: "*.txt",
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     input:
         val(META)

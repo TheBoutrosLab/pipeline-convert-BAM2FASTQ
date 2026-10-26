@@ -4,7 +4,8 @@
 process compare_readcounts {
     publishDir path: "${META.output_dir}/QC/${task.process.split(':')[-1].replace('_', '-')}",
         mode: "copy",
-        pattern: "read_count_comparison.txt"
+        pattern: "read_count_comparison.txt",
+        failOnError: false
 
     debug true
 

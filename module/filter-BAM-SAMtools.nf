@@ -7,7 +7,8 @@ process filter_BAM_SAMtools {
     publishDir path: "${META.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}",
         pattern: "*reads*",
         enabled: params.save_intermediate_files,
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     input:
         val(META)

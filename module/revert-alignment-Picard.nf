@@ -7,7 +7,8 @@ process revert_alignment_Picard {
     publishDir path: "${META.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}",
         pattern: "*.bam",
         enabled: params.save_intermediate_files,
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     input:
         val(META)

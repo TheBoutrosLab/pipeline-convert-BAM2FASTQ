@@ -7,7 +7,8 @@ process convert_CRAM2BAM_SAMtools {
     publishDir path: "${META.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}",
         enabled: params.save_intermediate_files,
         pattern: "*.bam",
-        mode: 'copy'
+        mode: 'copy',
+        failOnError: false
 
     input:
         val(META)

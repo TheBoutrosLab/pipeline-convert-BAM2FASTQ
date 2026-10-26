@@ -13,7 +13,7 @@ process count_reads_FASTQ {
         tuple val(fastq_id), path(fastq)
 
     output:
-        env read_count_FASTQ, emit: read_count
+        env('read_count_FASTQ'), emit: read_count
 
     script:
     """

@@ -8,7 +8,8 @@ process generate_FASTQ_SAMtools {
 
     publishDir path: "${META.output_dir}/output/${LB}",
         pattern: "*.fastq.gz",
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     ext log_dir_suffix: { "-${LB}-${read_group}" }
 
