@@ -20,7 +20,7 @@ Nextflow pipeline to convert BAM or CRAM files to FASTQs. This pipeline takes as
 
 ## How to Run
 
-**Requirements**: Currently supported Nextflow versions: `23.04.2`
+**Requirements**: Currently supported Nextflow versions: `25.10.5` (requires Java 17 or later)
 
 **The pipeline is currently configured to run on a SINGLE NODE one sample per pipeline run.**
 
