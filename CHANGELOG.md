@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-30
+
 ### Changed
 
 - Update to support Nextflow v25.10.5
@@ -58,4 +60,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 [1.3.1]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.0...v1.3.1
 [1.4.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.1...v1.4.0
 [1.4.1]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.0...v1.4.1
-[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.1...HEAD
+[2.0.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.1...v2.0.0
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v2.0.0...HEAD
