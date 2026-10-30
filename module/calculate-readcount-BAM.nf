@@ -9,7 +9,7 @@ process calculate_readcount_BAM {
         path(flagstats)
 
     output:
-        env read_count_BAM, emit: bam_read_count
+        env('read_count_BAM'), emit: bam_read_count
 
     script:
     """

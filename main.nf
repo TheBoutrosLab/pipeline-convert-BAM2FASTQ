@@ -1,7 +1,5 @@
 #!/usr/bin/env nextflow
 
-nextflow.enable.dsl=2
-
 // Include processes and workflows here
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf'
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
@@ -61,7 +59,7 @@ workflow {
     /**
     *   Input channel processing
     */
-    Channel.from(params.sample)
+    Channel.of(params.sample)
         .map{ sample -> ['index': indexFile(sample.path)] + sample }
         .set{ input_ch_sample_with_index }
 

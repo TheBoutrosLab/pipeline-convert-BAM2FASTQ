@@ -7,7 +7,8 @@ process collate_BAM_SAMtools {
     publishDir path: "${META.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}",
         pattern: "*collated.bam",
         enabled: params.save_intermediate_files,
-        mode: "copy"
+        mode: "copy",
+        failOnError: false
 
     ext log_dir_suffix: { "-${read_group}" }
 
@@ -16,7 +17,7 @@ process collate_BAM_SAMtools {
         tuple val(read_group), path(sample)
 
     output:
-        tuple val(read_group), env(LB), path("${read_group}-collated.bam"), emit: bam
+        tuple val(read_group), env('LB'), path("${read_group}-collated.bam"), emit: bam
         path(sample), emit: bam_for_deletion
 
     script:
