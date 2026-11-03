@@ -6,6 +6,7 @@ include { indexFile } from './external/pipeline-Nextflow-module/modules/common/i
 include { remove_intermediate_files } from './external/pipeline-Nextflow-module/modules/common/intermediate_file_removal/main.nf'
 include { generate_checksum_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf'
 
+include { check_PairedEnd_SAMtools } from './module/check-paired-end-SAMtools.nf'
 include { convert_CRAM2BAM_SAMtools } from './module/convert-CRAM2BAM-SAMtools.nf'
 include { generate_statistics_SAMtools } from './module/bam-stats-SAMtools.nf'
 include { calculate_readcount_BAM } from './module/calculate-readcount-BAM.nf'
@@ -100,18 +101,31 @@ workflow {
         )
 
     /**
+    *   Check for paired-end reads before downstream processing
+    */
+    check_PairedEnd_SAMtools(
+        base_meta,
+        input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] }
+    )
+
+    input_ch_sample_with_index
+        .combine(check_PairedEnd_SAMtools.out.paired_end_confirmed)
+        .map{ sample_info, _confirmed -> sample_info }
+        .set{ input_ch_sample_checked }
+
+    /**
     *   CRAM to BAM conversion
     */
     if (params.input_file_type == 'CRAM') {
         convert_CRAM2BAM_SAMtools(
             base_meta,
-            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+            input_ch_sample_checked.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
             params.reference_fasta
         )
 
         convert_CRAM2BAM_SAMtools.out.bam.set{ input_ch_bam }
     } else {
-        input_ch_sample_with_index.map{ input_sample ->
+        input_ch_sample_checked.map{ input_sample ->
             [input_sample.id, input_sample.path]
         }
         .set{ input_ch_bam }
@@ -136,7 +150,7 @@ workflow {
     if (params.filter_qc_failed_reads) {
         filter_BAM_SAMtools(
             base_meta,
-            input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
+            input_ch_sample_checked.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] },
         )
 
         filter_BAM_SAMtools.out.filtered.set{ input_ch_revert_alignment }
@@ -195,7 +209,7 @@ workflow {
 
     compare_readcounts(
         base_meta,
-        calculate_readcount_BAM.out.bam_read_count,
+        calculate_readcount_BAM.out.bam_read_counts,
         fastq_read_count
     )
 
