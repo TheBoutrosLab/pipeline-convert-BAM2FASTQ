@@ -30,7 +30,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.5,
+                "max": 1
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.45,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.5,
@@ -152,7 +170,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.25,
+                "max": 4
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.07,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.25,
@@ -274,7 +310,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.13,
+                "max": 4
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.03,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.13,
@@ -396,7 +450,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.06,
+                "max": 4
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
@@ -518,7 +590,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.03,
+                "max": 2
+            },
+            "memory": {
+                "min": "64 GB",
+                "fraction": 0.26,
+                "max": "256 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.03,
@@ -640,7 +730,25 @@
                 }
             }
         },
-        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
+        "generate_statistics_SAMtools": {
+            "cpus": {
+                "min": 1,
+                "fraction": 0.06,
+                "max": 4
+            },
+            "memory": {
+                "min": "1 GB",
+                "fraction": 0.01,
+                "max": "2 GB"
+            },
+            "retry_strategy": {
+                "memory": {
+                    "strategy": "exponential",
+                    "operand": 2
+                }
+            }
+        },
+        "check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
