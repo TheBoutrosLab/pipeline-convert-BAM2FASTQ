@@ -30,7 +30,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.5,
@@ -152,7 +152,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.25,
@@ -274,7 +274,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.13,
@@ -396,7 +396,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
@@ -518,7 +518,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.03,
@@ -640,7 +640,7 @@
                 }
             }
         },
-        "generate_statistics_SAMtools": {
+        "generate_statistics_SAMtools|check_PairedEnd_SAMtools": {
             "cpus": {
                 "min": 1,
                 "fraction": 0.06,
