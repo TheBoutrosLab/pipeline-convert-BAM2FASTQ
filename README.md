@@ -48,18 +48,22 @@ python submit_nextflow_pipeline.py \
 ## Pipeline Processes
 ### 1. Input Validation
 Checks if input files are valid.
-### 2. Uncram Input file with `.cram` extension
+### 2. Check for Paired-End Reads
+Uses SAMtools `head` and `flagstat` to confirm the input contains paired-end reads before further processing. The pipeline fails if the input contains no paired-end reads.
+### 3. Uncram Input file with `.cram` extension
 Uses specified reference genome to decompress CRAM files and restore it to a BAM file.
-### 3. Get Summary Statistics
+### 4. Get Summary Statistics
 Uses SAMtools `flagstat` and `stats` command to generate a summary with basic information on reads
-### 4. Filter Failed Reads
+### 5. Filter Failed Reads
 Removes reads that have failed basic QC per the vendor specification
-### 5. Eliminate Mapping Information and Output by ReadGroup
+### 6. Eliminate Mapping Information and Output by ReadGroup
 Uses PicardTools `RevertSam` command to eliminate genomic coordinates leaving only read and quality scores. This process also outputs intermediate files separated by read group.
-### 6. Sort intermediate file
+### 7. Sort intermediate file
 Uses SAMtools `collate` command to sort the intermediate files. This is needed for the FASTQ creation stage.
-### 7. Create FASTQs
-Uses SAMtools `fastq` to output paired FASTQs and supplementary reads.
+### 8. Create FASTQs
+Uses SAMtools `fastq` to output paired FASTQs and supplementary reads. Single-end reads are excluded from the paired FASTQs, with a warning reporting the number and percentage excluded; when `split_unmapped_reads_to_separate_file` is enabled, they are written to the `other` FASTQ instead. Read groups with no paired-end reads produce no FASTQs.
+### 9. Compare Read Counts
+Compares the expected read count from the input with the read count of the output FASTQs, reporting excluded single-end reads separately.
 
 ## Inputs
 
@@ -176,6 +180,7 @@ Profiles can be selected to control which containerization system will be used. 
 | ------------ | ------------------------ |
 | `<readgroup_ID>_R{1,2}.fastq.gz` | pair of FASTQ files |
 | `<readgroup_ID>_singleton.fastq.gz` | FASTQ with singleton reads |
+| `QC/compare-readcounts/read_count_comparison.txt` | Expected paired-end, excluded single-end and output FASTQ read counts |
 
 ## Discussions
 
