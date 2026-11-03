@@ -18,7 +18,7 @@ process generate_FASTQ_SAMtools {
         tuple val(read_group), val(LB), path(sample)
 
     output:
-        tuple val(LB), path("*.fastq.gz"), emit: fastq
+        tuple val(LB), path("*.fastq.gz"), emit: fastq, optional: true
 
     script:
     prefix = generate_standard_filename(
@@ -46,7 +46,15 @@ process generate_FASTQ_SAMtools {
             -c ${params.compression_level} \
             -1 "${prefix}-R1.fastq.gz" \
             -2 "${prefix}-R2.fastq.gz" \
+            -0 /dev/null \
             "${sample}"
+    fi
+
+    # Read groups containing only single-end reads produce no R1/R2 FASTQs
+    if [ -z "\$(gzip -cd "${prefix}-R1.fastq.gz" | head -c 1)" ]
+    then
+        echo "WARNING: No paired-end reads in read group ${read_group}; R1/R2 FASTQs not produced." >&2
+        rm -f "${prefix}-R1.fastq.gz" "${prefix}-R2.fastq.gz"
     fi
     """
 }
