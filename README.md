@@ -49,7 +49,7 @@ python submit_nextflow_pipeline.py \
 ### 1. Input Validation
 Checks if input files are valid.
 ### 2. Check for Paired-End Reads
-Uses SAMtools `head` and `flagstat` to confirm the input contains paired-end reads before further processing. The pipeline fails if the input contains no paired-end reads.
+Uses SAMtools `head` and `flagstat` to confirm the input contains paired-end reads before further processing. The pipeline fails if the input contains no paired-end reads, or no QC-passed paired-end reads when `filter_qc_failed_reads` is enabled.
 ### 3. Uncram Input file with `.cram` extension
 Uses specified reference genome to decompress CRAM files and restore it to a BAM file.
 ### 4. Get Summary Statistics

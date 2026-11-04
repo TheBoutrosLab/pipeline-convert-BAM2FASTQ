@@ -21,13 +21,16 @@ process check_PairedEnd_SAMtools {
 
     script:
     reference_arg = META.containsKey('reference_fasta') ? "--input-fmt-option reference=${META.reference_fasta}" : ''
+    // QC-failed reads only count when they are kept for conversion
+    include_qc_failed = params.filter_qc_failed_reads ? 0 : 1
+    read_label = params.filter_qc_failed_reads ? 'QC-passed ' : ''
     """
     set -o pipefail
 
     count_reads() {
-        awk -F '\\t' '
-            \$3 == "primary"              { primary = \$1 + \$2 }
-            \$3 == "paired in sequencing" { paired = \$1 + \$2 }
+        awk -F '\\t' -v include_qc_failed=${include_qc_failed} '
+            \$3 == "primary"              { primary = \$1 + include_qc_failed * \$2 }
+            \$3 == "paired in sequencing" { paired = \$1 + include_qc_failed * \$2 }
             END { printf("%.0f %.0f\\n", primary, paired) }
         '
     }
@@ -45,7 +48,7 @@ process check_PairedEnd_SAMtools {
 
     if [ "\$paired" -eq 0 ]
     then
-        echo "ERROR: No paired-end reads found in ${sample} (\$primary primary reads). This pipeline requires paired-end reads." >&2
+        echo "ERROR: No ${read_label}paired-end reads found in ${sample} (\$primary ${read_label}primary reads). This pipeline requires paired-end reads." >&2
         exit 1
     fi
     """
