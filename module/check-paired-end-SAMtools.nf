@@ -4,6 +4,14 @@
 process check_PairedEnd_SAMtools {
     container params.docker_image_samtools
 
+    ext containerOptions: {
+        if (META.containsKey('reference_fasta')) {
+            def reference_dir = file(META.reference_fasta).parent
+            return "${params.container_mount_flag} \"${reference_dir}:${reference_dir}\""
+        }
+        return ''
+    }
+
     input:
         val(META)
         tuple val(sample_id), path(sample), path(sample_index)
@@ -12,7 +20,7 @@ process check_PairedEnd_SAMtools {
         val(sample_id), emit: paired_end_confirmed
 
     script:
-    reference_arg = (params.input_file_type == 'CRAM') ? "--input-fmt-option reference=${params.reference_fasta}" : ''
+    reference_arg = META.containsKey('reference_fasta') ? "--input-fmt-option reference=${META.reference_fasta}" : ''
     """
     set -o pipefail
 

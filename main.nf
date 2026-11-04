@@ -104,7 +104,9 @@ workflow {
     *   Check for paired-end reads before downstream processing
     */
     check_PairedEnd_SAMtools(
-        base_meta,
+        base_meta.map{ base_m ->
+            (params.input_file_type == 'CRAM') ? base_m + ['reference_fasta': params.reference_fasta] : base_m
+        },
         input_ch_sample_with_index.map{ sample_info -> [sample_info.id, sample_info.path, sample_info.index] }
     )
 
