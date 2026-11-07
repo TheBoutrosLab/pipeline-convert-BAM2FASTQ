@@ -51,7 +51,7 @@ process generate_FASTQ_SAMtools {
     fi
 
     # Read groups containing only single-end reads produce no R1/R2 FASTQs
-    if [ -z "\$(gzip -cd "${prefix}-R1.fastq.gz" | head -c 1)" ]
+    if [ -z "\$(gzip -cd "${prefix}-R1.fastq.gz" | head -c 1)" ] && [ -z "\$(gzip -cd "${prefix}-R2.fastq.gz" | head -c 1)" ]
     then
         echo "WARNING: No paired-end reads in read group ${read_group}; R1/R2 FASTQs not produced." >&2
         rm -f "${prefix}-R1.fastq.gz" "${prefix}-R2.fastq.gz"
