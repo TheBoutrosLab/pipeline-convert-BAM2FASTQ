@@ -8,6 +8,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Added
+
+- Fail when input BAM/CRAM has no paired-end reads
+
+### Changed
+
+- Exclude single-end reads from FASTQ output and report the excluded count
+
 ## [2.0.0] - 2026-10-30
 
 ### Changed
