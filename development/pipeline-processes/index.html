@@ -57,17 +57,21 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#1-input-validation">1. Input Validation</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2-uncram-input-file-with-cram-extension">2. Uncram Input file with .cram extension</a>
+    <li class="toctree-l2"><a class="reference internal" href="#2-check-for-paired-end-reads">2. Check for Paired-End Reads</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3-get-summary-statistics">3. Get Summary Statistics</a>
+    <li class="toctree-l2"><a class="reference internal" href="#3-uncram-input-file-with-cram-extension">3. Uncram Input file with .cram extension</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4-filter-failed-reads">4. Filter Failed Reads</a>
+    <li class="toctree-l2"><a class="reference internal" href="#4-get-summary-statistics">4. Get Summary Statistics</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5-eliminate-mapping-information-and-output-by-readgroup">5. Eliminate Mapping Information and Output by ReadGroup</a>
+    <li class="toctree-l2"><a class="reference internal" href="#5-filter-failed-reads">5. Filter Failed Reads</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#6-sort-intermediate-file">6. Sort intermediate file</a>
+    <li class="toctree-l2"><a class="reference internal" href="#6-eliminate-mapping-information-and-output-by-readgroup">6. Eliminate Mapping Information and Output by ReadGroup</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#7-create-fastqs">7. Create FASTQs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#7-sort-intermediate-file">7. Sort intermediate file</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-create-fastqs">8. Create FASTQs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-compare-read-counts">9. Compare Read Counts</a>
     </li>
     </ul>
                 </li>
@@ -116,7 +120,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Pipeline Processes</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/blob/db65578731c0f1eb419bbd65895c666c3ec8d3d1/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/blob/647b43a05e31dd92a8c23412a7997cd866f245aa/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -127,18 +131,22 @@
                 <h2 id="pipeline-processes">Pipeline Processes</h2>
 <h3 id="1-input-validation">1. Input Validation</h3>
 <p>Checks if input files are valid.</p>
-<h3 id="2-uncram-input-file-with-cram-extension">2. Uncram Input file with <code>.cram</code> extension</h3>
+<h3 id="2-check-for-paired-end-reads">2. Check for Paired-End Reads</h3>
+<p>Uses SAMtools <code>head</code> and <code>flagstat</code> to confirm the input contains paired-end reads before further processing. The pipeline fails if the input contains no paired-end reads, or no QC-passed paired-end reads when <code>filter_qc_failed_reads</code> is enabled.</p>
+<h3 id="3-uncram-input-file-with-cram-extension">3. Uncram Input file with <code>.cram</code> extension</h3>
 <p>Uses specified reference genome to decompress CRAM files and restore it to a BAM file.</p>
-<h3 id="3-get-summary-statistics">3. Get Summary Statistics</h3>
+<h3 id="4-get-summary-statistics">4. Get Summary Statistics</h3>
 <p>Uses SAMtools <code>flagstat</code> and <code>stats</code> command to generate a summary with basic information on reads</p>
-<h3 id="4-filter-failed-reads">4. Filter Failed Reads</h3>
+<h3 id="5-filter-failed-reads">5. Filter Failed Reads</h3>
 <p>Removes reads that have failed basic QC per the vendor specification</p>
-<h3 id="5-eliminate-mapping-information-and-output-by-readgroup">5. Eliminate Mapping Information and Output by ReadGroup</h3>
+<h3 id="6-eliminate-mapping-information-and-output-by-readgroup">6. Eliminate Mapping Information and Output by ReadGroup</h3>
 <p>Uses PicardTools <code>RevertSam</code> command to eliminate genomic coordinates leaving only read and quality scores. This process also outputs intermediate files separated by read group.</p>
-<h3 id="6-sort-intermediate-file">6. Sort intermediate file</h3>
+<h3 id="7-sort-intermediate-file">7. Sort intermediate file</h3>
 <p>Uses SAMtools <code>collate</code> command to sort the intermediate files. This is needed for the FASTQ creation stage.</p>
-<h3 id="7-create-fastqs">7. Create FASTQs</h3>
-<p>Uses SAMtools <code>fastq</code> to output paired FASTQs and supplementary reads.</p>
+<h3 id="8-create-fastqs">8. Create FASTQs</h3>
+<p>Uses SAMtools <code>fastq</code> to output paired FASTQs and supplementary reads. Single-end reads are excluded from the paired FASTQs, with a warning reporting the number and percentage excluded; when <code>split_unmapped_reads_to_separate_file</code> is enabled, they are written to the <code>other</code> FASTQ instead. Read groups with no paired-end reads produce no FASTQs.</p>
+<h3 id="9-compare-read-counts">9. Compare Read Counts</h3>
+<p>Compares the expected read count from the input with the read count of the output FASTQs, reporting excluded single-end reads separately.</p>
               
             </div>
           </div><footer>
