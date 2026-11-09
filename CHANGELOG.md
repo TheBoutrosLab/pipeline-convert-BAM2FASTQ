@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-09
+
 ### Added
 
 - Fail when input BAM/CRAM has no paired-end reads
@@ -69,4 +71,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 [1.4.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.3.1...v1.4.0
 [1.4.1]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.0...v1.4.1
 [2.0.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v1.4.1...v2.0.0
-[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v2.0.0...HEAD
+[2.1.0]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v2.0.0...v2.1.0
+[unreleased]: https://github.com/TheBoutrosLab/pipeline-convert-BAM2FASTQ/compare/v2.1.0...HEAD
